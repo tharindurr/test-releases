@@ -76,7 +76,10 @@ runs:
           }
         }'
         echo $CONTENT > /tmp/.release-config.json
-        cat /tmp/.release-config.json
+
+    - name: Check config file
+      shell: bash
+      run: cat /tmp/.release-config.json
 
     - uses: googleapis/release-please-action@v4
       id: release
