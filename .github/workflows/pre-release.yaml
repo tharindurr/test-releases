@@ -2,28 +2,25 @@ name: Pre-Release
 
 on:
   workflow_dispatch:
-    # inputs:
-    #   pre_release_name:
-    #     description: 'Name of the pre-release branch'
-    #     required: true
-    #     default: 'pre-release'
-    #   base_branch:
-    #     description: 'Base branch for the pre-release'
-    #     required: true
+    inputs:
+      pre_release_name:
+        description: 'Name of the pre-release branch'
+        required: true
+        default: 'pre-release'
 
 
 jobs:
-  release:
+  pre-release:
     runs-on: ubuntu-latest
     steps:
 
       - name: Checkout
         uses: actions/checkout@v2
 
-      # - name: Create pre-release branch
-      #   run: |
-      #     git checkout -b ${{ inputs.pre_release_name }} ${{ inputs.base_branch }}
-      #     git push origin ${{ inputs.pre_release_name }}
+      - name: Create pre-release branch
+        run: |
+          git checkout -b ${{ inputs.pre_release_name }} ${{ github.ref_name }}
+          git push origin ${{ inputs.pre_release_name }}
 
       - if: ${{ !env.ACT }}
         name: Generate app token
@@ -40,5 +37,5 @@ jobs:
           token: ${{ steps.generate-token.outputs.token }}
           include-v-in-tag: false
           release-type: "python"
-          default-branch: ${{ github.ref_name }}
+          default-branch: ${{ inputs.pre_release_name }}
           versioning-strategy: "prerelease"
