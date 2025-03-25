@@ -76,6 +76,7 @@ runs:
             }
           }
         }' > "$HOME/.release-config.json"
+        cat "$HOME/.release-config.json"
         echo "config-file=$HOME/.release-config.json" >> "$GITHUB_OUTPUT"
 
     - uses: googleapis/release-please-action@v4
