@@ -47,47 +47,21 @@ runs:
         app-id: ${{ inputs.app-id }}
         private-key: ${{ inputs.app-private-key }}
 
-    - name: Compute release parameters
-      id: release-parameters
+    - name: Setup release config
+      id: release-config
       shell: bash
       run: |
-        if [ -z "${{ inputs.prerelease }}" ]; then
-          if [[ "${{ github.ref_name }}" == "devel" ]]; then
-            VERSIONING_STRATEGY="always-bump-minor"
-          else
-            VERSIONING_STRATEGY="always-bump-patch"
-          fi
+        if ${{ input.prerelease == 'true' }}; then
+          # set output
+          echo "config-file=.github/release-please/.release-please-config-prerelease.json" >> $GITHUB_OUTPUT
+        elif ${{ github.ref_name == 'devel' }}; then
+          # set output
+          echo "config-file=.github/release-please/.release-please-config-devel.json" >> $GITHUB_OUTPUT
         else
-          VERSIONING_STRATEGY="prerelease"
+          # set output
+          echo "config-file=.github/release-please/.release-please-config-patch.json" >> $GITHUB_OUTPUT
         fi
-        echo "versioning=$VERSIONING_STRATEGY" >> "$GITHUB_OUTPUT"
-
-    - name: Generate release config file
-      shell: bash
-      run: |
-        CONTENT='{
-          "$schema": "https://raw.githubusercontent.com/googleapis/release-please/main/schemas/config.json",
-          "release-type": "${{ inputs.release-type }}",
-          "versioning": "${{ steps.release-parameters.outputs.versioning }}",
-          "packages": {
-            ".": {
-              "include-v-in-tag": false
-            }
-          }
-        }'
-        echo $CONTENT > /tmp/.release-config.json
-
-    - name: Check config file
-      shell: bash
-      run: cat /tmp/.release-config.json
-
-    - uses: googleapis/release-please-action@v4
-      id: release
-      with:
-        token: ${{ steps.generate-token.outputs.token }}
-        target-branch: ${{ github.ref_name }}
-        config-file: /tmp/.release-config.json
-        manifest-file: .release-please-manifest.json
+        echo "manifest-file=.github/release-please/.release-please-manifest.json" >> $GITHUB_OUTPUT
 
     - name: Get GitHub App User ID
       if: ${{ inputs.major-minor-tag-update == 'true' && steps.release.outputs.release_created }}
