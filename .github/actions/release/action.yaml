@@ -84,6 +84,7 @@ runs:
         token: ${{ steps.generate-token.outputs.token }}
         target-branch: ${{ github.ref_name }}
         config-file: ${{ steps.release-config.outputs.config-file }}
+        manifest-file: .release-please-manifest.json
 
     - name: Get GitHub App User ID
       if: ${{ inputs.major-minor-tag-update == 'true' && steps.release.outputs.release_created }}
