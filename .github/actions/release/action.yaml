@@ -66,7 +66,7 @@ runs:
       id: release-config
       shell: bash
       run: |
-        echo '{
+        CONTENT='{
           "$schema": "https://raw.githubusercontent.com/googleapis/release-please/main/schemas/config.json",
           "release-type": "${{ inputs.release-type }}",
           "versioning": "${{ steps.release-parameters.outputs.versioning }}",
@@ -75,7 +75,8 @@ runs:
               "include-v-in-tag": false
             }
           }
-        }' > "$HOME/.release-config.json"
+        }'
+        echo "$CONTENT" > "$HOME/.release-config.json"
         cat "$HOME/.release-config.json"
         echo "config-file=$HOME/.release-config.json" >> "$GITHUB_OUTPUT"
 
