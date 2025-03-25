@@ -67,4 +67,4 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ steps.create-app-token.outputs.token }}
       run: |
-        gh release create ${{ steps.determine-version.outputs.new_version }} --title "Pre-Release ${{ steps.determine-version.outputs.new_version }}" --notes "Pre-Release ${{ steps.determine-version.outputs.new_version }}" --prerelease
+        gh release create ${{ steps.determine-version.outputs.new_version }} --title "${{ steps.determine-version.outputs.new_version }}" --generate-notes --prerelease
