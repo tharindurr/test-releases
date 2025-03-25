@@ -5,8 +5,8 @@ on:
     inputs:
       pre_release_name:
         description: 'Name of the pre-release branch'
-        required: true
-        default: 'pre-release'
+        required: false
+        default: 'prerelease'
 
 
 jobs:
@@ -14,23 +14,33 @@ jobs:
     runs-on: ubuntu-latest
     steps:
 
-      - name: Checkout
-        uses: actions/checkout@v2
+    - name: Checkout repository
+      uses: actions/checkout@v2
 
-      - if: ${{ !env.ACT }}
-        name: Generate app token
-        id: generate-token
-        uses: actions/create-github-app-token@v1
-        with:
-          app-id: ${{ vars.APP_ID }}
-          private-key: ${{ secrets.APP_PRIVATE_KEY }}
+    - name: Set up Git
+      run: |
+        git config --global user.name 'github-actions'
+        git config --global user.email 'github-actions@github.com'
 
-      - if: ${{ !env.ACT }}
-        uses: googleapis/release-please-action@v3
-        id: prerelease
-        with:
-          token: ${{ steps.generate-token.outputs.token }}
-          include-v-in-tag: false
-          release-type: "python"
-          default-branch: ${{ inputs.pre_release_name }}
-          versioning-strategy: "prerelease"
+    - name: Get latest tag
+      id: get_latest_tag
+      run: |
+        LATEST_TAG=$(git describe --tags `git rev-list --tags --max-count=1`)
+        echo "::set-output name=latest_tag::$LATEST_TAG"
+
+    - name: Determine new prerelease version
+      id: determine_version
+      run: |
+        if [[ "${{ steps.get_latest_tag.outputs.latest_tag }}" =~ ^v[0-9]+\.[0-9]+\.[0-9]+-prerelease\.[0-9]+$ ]]; then
+          BASE_VERSION=$(echo "${{ steps.get_latest_tag.outputs.latest_tag }}" | sed -E 's/-prerelease\.[0-9]+$//')
+          PREVIOUS_NUMBER=$(echo "${{ steps.get_latest_tag.outputs.latest_tag }}" | sed -E 's/.*-prerelease\.([0-9]+)$/\1/')
+          NEW_NUMBER=$((PREVIOUS_NUMBER + 1))
+          NEW_VERSION="${BASE_VERSION}-prerelease.$NEW_NUMBER"
+        else
+          NEW_VERSION="${{ steps.get_latest_tag.outputs.latest_tag }}-prerelease.1"
+        fi
+        echo "::set-output name=new_version::$NEW_VERSION"
+
+    - name: Test new version
+      run: |
+        echo "New version: ${{ steps.determine_version.outputs.new_version }}"
