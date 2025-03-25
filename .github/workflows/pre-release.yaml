@@ -2,12 +2,6 @@ name: Pre-Release
 
 on:
   workflow_dispatch:
-    inputs:
-      pre_release_name:
-        description: 'Name of the pre-release branch'
-        required: false
-        default: 'prerelease'
-
 
 jobs:
   pre-release:
