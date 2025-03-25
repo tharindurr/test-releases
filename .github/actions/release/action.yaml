@@ -47,16 +47,43 @@ runs:
         app-id: ${{ inputs.app-id }}
         private-key: ${{ inputs.app-private-key }}
 
-    - if: ${{ !env.ACT }}
-      uses: googleapis/release-please-action@v3
+    - name: Compute release parameters
+      id: release-parameters
+      shell: bash
+      run: |
+        if [ -z "${{ inputs.prerelease }}" ]; then
+          if [[ "${{ github.ref_name }}" == "devel" ]]; then
+            VERSIONING_STRATEGY="always-bump-minor"
+          else
+            VERSIONING_STRATEGY="always-bump-patch"
+          fi
+        else
+          VERSIONING_STRATEGY="prerelease"
+        fi
+        echo "versioning=$VERSIONING_STRATEGY" >> "$GITHUB_OUTPUT"
+
+    - name: Generate release config
+      id: release-config
+      shell: bash
+      run: |
+        echo '{
+          "$schema": "https://raw.githubusercontent.com/googleapis/release-please/main/schemas/config.json",
+          "release-type": "${{ inputs.release-type }}",
+          "versioning": "${{ steps.release-parameters.outputs.versioning }}",
+          "packages": {
+            ".": {
+              "include-v-in-tag": false
+            }
+          }
+        }' > /tmp/release-config.json
+        echo "config-file=/tmp/release-config.json" >> "$GITHUB_OUTPUT"
+
+    - uses: googleapis/release-please-action@v4
       id: release
       with:
         token: ${{ steps.generate-token.outputs.token }}
-        include-v-in-tag: false
-        release-type: ${{ inputs.release-type }}
-        default-branch: ${{ github.ref_name }}
-        versioning-strategy: ${{ github.ref_name == 'devel' && 'always-bump-minor' || 'always-bump-patch' }}
-        prerelease: ${{ inputs.prerelease == 'true' }}
+        target-branch: ${{ github.ref_name }}
+        config-file: ${{ steps.release-config.outputs.config-file }}
 
     - name: Get GitHub App User ID
       if: ${{ inputs.major-minor-tag-update == 'true' && steps.release.outputs.release_created }}
