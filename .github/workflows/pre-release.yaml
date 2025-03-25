@@ -11,10 +11,12 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v2
 
-    - name: Set up Git
-      run: |
-        git config --global user.name 'github-actions'
-        git config --global user.email 'github-actions@github.com'
+    - name: Create GitHub App token
+      id: create_app_token
+      uses: actions/create-github-app-token@v1
+      with:
+        app-id: ${{ vars.APP_ID }}
+        private-key: ${{ secrets.APP_PRIVATE_KEY }}
 
     - name: Get latest tag
       id: get_latest_tag
@@ -38,6 +40,19 @@ jobs:
         fi
         echo "::set-output name=new_version::$NEW_VERSION"
 
-    - name: Test new version
+    - name: Create new tag
+      env:
+        GITHUB_TOKEN: ${{ steps.create_app_token.outputs.token }}
       run: |
-        echo "New version: ${{ steps.determine_version.outputs.new_version }}"
+        git tag ${{ steps.determine_version.outputs.new_version }}
+        git push origin ${{ steps.determine_version.outputs.new_version }}
+
+    - name: Create GitHub release
+      uses: actions/create-release@v1
+      env:
+        GITHUB_TOKEN: ${{ steps.create_app_token.outputs.token }}
+      with:
+        tag_name: ${{ steps.determine_version.outputs.new_version }}
+        release_name: ${{ steps.determine_version.outputs.new_version }}
+        draft: false
+        prerelease: true
