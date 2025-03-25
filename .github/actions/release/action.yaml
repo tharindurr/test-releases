@@ -75,8 +75,8 @@ runs:
               "include-v-in-tag": false
             }
           }
-        }' > /tmp/release-config.json
-        echo "config-file=/tmp/release-config.json" >> "$GITHUB_OUTPUT"
+        }' > $HOME/.release-config.json
+        echo "config-file=$HOME/.release-config.json" >> "$GITHUB_OUTPUT"
 
     - uses: googleapis/release-please-action@v4
       id: release
