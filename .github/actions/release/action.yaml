@@ -62,8 +62,7 @@ runs:
         fi
         echo "versioning=$VERSIONING_STRATEGY" >> "$GITHUB_OUTPUT"
 
-    - name: Generate release config
-      id: release-config
+    - name: Generate release config file
       shell: bash
       run: |
         CONTENT='{
@@ -76,16 +75,15 @@ runs:
             }
           }
         }'
-        echo $CONTENT > $HOME/.release-config.json
-        cat $HOME/.release-config.json
-        echo "config-file=$HOME/.release-config.json" >> "$GITHUB_OUTPUT"
+        echo $CONTENT > /tmp/.release-config.json
+        cat /tmp/.release-config.json
 
     - uses: googleapis/release-please-action@v4
       id: release
       with:
         token: ${{ steps.generate-token.outputs.token }}
         target-branch: ${{ github.ref_name }}
-        config-file: ${{ steps.release-config.outputs.config-file }}
+        config-file: /tmp/.release-config.json
         manifest-file: .release-please-manifest.json
 
     - name: Get GitHub App User ID
