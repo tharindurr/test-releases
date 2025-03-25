@@ -63,6 +63,34 @@ runs:
         fi
         echo "manifest-file=.github/release-please/.release-please-manifest.json" >> $GITHUB_OUTPUT
 
+    - name: Check release config
+      id: check-release-config
+      shell: bash
+      run: |
+        #  check if the config file exists
+        if [ ! -f "${{ steps.release-config.outputs.config-file }}" ]; then
+          echo "::error::Config file not found: ${{ steps.release-config.outputs.config-file }}"
+          echo "::notice::Please add release please configs to .github/release-please/"
+          echo "::notice::Check https://github.com/rapyuta-robotics/workflows for more details"
+          exit 1
+        fi
+
+        #  check if the manifest file exists
+        if [ ! -f "${{ steps.release-config.outputs.manifest-file }}" ]; then
+          echo "::error::Manifest file not found: ${{ steps.release-config.outputs.manifest-file }}"
+          echo "::notice::Please add release please configs to .github/release-please/"
+          echo "::notice::Check https://github.com/rapyuta-robotics/workflows for more details"
+          exit 1
+        fi
+
+    - uses: googleapis/release-please-action@v4
+      id: release
+      with:
+        token: ${{ steps.generate-token.outputs.token }}
+        target-branch: ${{ github.ref_name }}
+        config-file: ${{ steps.release-config.outputs.config-file }}
+        manifest-file: ${{ steps.release-config.outputs.manifest-file }}
+
     - name: Get GitHub App User ID
       if: ${{ inputs.major-minor-tag-update == 'true' && steps.release.outputs.release_created }}
       shell: bash
