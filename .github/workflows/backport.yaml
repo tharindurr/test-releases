@@ -8,6 +8,6 @@ jobs:
   backports:
     runs-on: ubuntu-latest
     steps:
-      - uses: rapyuta-robotics/workflows/backports@0.1
+      - uses: ./actions/backports
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
