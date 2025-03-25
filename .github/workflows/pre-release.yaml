@@ -3,6 +3,9 @@ name: Pre-Release
 on:
   workflow_dispatch:
 
+permissions:
+  contents: write
+
 jobs:
   pre-release:
     runs-on: ubuntu-latest
@@ -60,11 +63,8 @@ jobs:
         git push origin --tags
 
     - name: Create GitHub release
-      uses: actions/create-release@v1
+      shell: bash
       env:
         GITHUB_TOKEN: ${{ steps.create-app-token.outputs.token }}
-      with:
-        tag_name: ${{ steps.determine-version.outputs.new_version }}
-        release_name: ${{ steps.determine-version.outputs.new_version }}
-        draft: false
-        prerelease: true
+      run: |
+        gh release create ${{ steps.determine-version.outputs.new_version }} --title "Pre-Release ${{ steps.determine-version.outputs.new_version }}" --notes "Pre-Release ${{ steps.determine-version.outputs.new_version }}" --prerelease
