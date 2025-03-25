@@ -17,11 +17,6 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
-      - name: Create pre-release branch
-        run: |
-          git checkout -b ${{ inputs.pre_release_name }} ${{ github.ref_name }}
-          git push origin ${{ inputs.pre_release_name }}
-
       - if: ${{ !env.ACT }}
         name: Generate app token
         id: generate-token
