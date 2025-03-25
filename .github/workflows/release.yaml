@@ -1,0 +1,17 @@
+name: Release
+
+on:
+  push:
+    branches:
+      - devel
+      - "release/**"
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: rapyuta-robotics/workflows/release@0.1
+        with:
+          app-id: ${{ vars.APP_ID }}
+          app-private-key: ${{ secrets.APP_PRIVATE_KEY }}
+          release-type: python

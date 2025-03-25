@@ -1,0 +1,13 @@
+name: Backports
+
+on:
+  pull_request_target:
+    types: ["labeled", "closed"]
+
+jobs:
+  backports:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: rapyuta-robotics/workflows/backports@0.1
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
