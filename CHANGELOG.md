@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.1](https://github.com/tharindurr/test-releases/compare/0.1.0...0.1.1) (2025-03-25)
+
+
+### Features
+
+* feat 1 ([1a25af2](https://github.com/tharindurr/test-releases/commit/1a25af26d33d8ec13ff9c7dfeeb336cd613d269f))
+
 ## 0.1.0 (2025-03-25)
 
 
