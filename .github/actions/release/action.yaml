@@ -51,7 +51,7 @@ runs:
       id: release-config
       shell: bash
       run: |
-        if ${{ input.prerelease == 'true' }}; then
+        if ${{ inputs.prerelease == 'true' }}; then
           # set output
           echo "config-file=.github/release-please/.release-please-config-prerelease.json" >> $GITHUB_OUTPUT
         elif ${{ github.ref_name == 'devel' }}; then
