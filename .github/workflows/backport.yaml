@@ -8,6 +8,8 @@ jobs:
   backports:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v4
+
       - uses: ./actions/backports
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}

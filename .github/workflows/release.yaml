@@ -10,6 +10,8 @@ jobs:
   release:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v4
+
       - uses: ./actions/release
         with:
           app-id: ${{ vars.APP_ID }}
