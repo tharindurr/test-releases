@@ -36,7 +36,7 @@ jobs:
         if [ -z "$LATEST_TAG" ]; then
           LATEST_TAG="0.1.0"
         fi
-        echo "::set-output name=latest_tag::$LATEST_TAG"
+        echo "latest_tag=$LATEST_TAG" >> "$GITHUB_OUTPUT"
 
     - name: Determine new prerelease version
       id: determine-version
@@ -49,7 +49,7 @@ jobs:
         else
           NEW_VERSION="${{ steps.get-latest-version.outputs.latest_tag }}-prerelease.1"
         fi
-        echo "::set-output name=new_version::$NEW_VERSION"
+        echo "new_version=$NEW_VERSION" >> "$GITHUB_OUTPUT"
 
     - name: Create new tag
       env:
