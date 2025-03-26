@@ -36,7 +36,7 @@ class OnlyMinorVersionUpdate {
     return new Version(
       version.major,
       nextMinor,
-      version.patch,
+      0,
       null,
       null
     )

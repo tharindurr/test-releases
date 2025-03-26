@@ -125,7 +125,7 @@ async function main () {
             return new Version(
               version.major,
               version.minor + 1,
-              version.patch,
+              0,
               `${PRERELEASE_NAME}.0`,
               null
             )
