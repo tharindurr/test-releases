@@ -146,7 +146,7 @@ async function main () {
           bump: (version) => {
             return new Version(
               version.major,
-              version.minor,
+              version.minor + 1,
               version.patch,
               `${PRERELEASE_NAME}.0`,
               null
