@@ -92,9 +92,10 @@ async function main () {
       determineReleaseType(version, commits) {
         return {
           bump: (version) => {
+            let nextMinor = version.preRelease ? version.minor : version.minor + 1;
             return new Version(
               version.major,
-              version.minor + 1,
+              nextMinor,
               version.patch,
               null,
               null
