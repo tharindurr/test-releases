@@ -1,5 +1,28 @@
 # Changelog
 
+## 0.1.0 (2025-03-26)
+
+
+### Features
+
+* feat 1 ([0439bee](https://github.com/tharindurr/test-releases/commit/0439bee3db8b4fbf3db6421158d273f39fd95bcf))
+* feat 1 ([ba0f7c1](https://github.com/tharindurr/test-releases/commit/ba0f7c1e2ce6886dbb1f1a8338350f50656cc0b8))
+* init ([905c34f](https://github.com/tharindurr/test-releases/commit/905c34f91627a2e5e98453d411113011c51ed9a7))
+
+
+### Bug Fixes
+
+* ci cd ([07b3929](https://github.com/tharindurr/test-releases/commit/07b3929866923926256c657873554e897bff155c))
+* ci cd ([6bce681](https://github.com/tharindurr/test-releases/commit/6bce6816b06c8598033b674bb322660118b92484))
+* ci cd ([af55661](https://github.com/tharindurr/test-releases/commit/af556611792d5af7c056462a258ac34ef7efa9d5))
+* ci cd ([75662ab](https://github.com/tharindurr/test-releases/commit/75662abd4390ee8d837ef6f722e9b85671dd52fa))
+* ci cd ([cc747ba](https://github.com/tharindurr/test-releases/commit/cc747ba318876a28ffc20224d4e0eb616bb43c96))
+* ci cd ([2caa7fd](https://github.com/tharindurr/test-releases/commit/2caa7fd0a80c932fbec143b74fd819da42191804))
+* ci cd ([9e8331d](https://github.com/tharindurr/test-releases/commit/9e8331d28d3d94bbff2ae8573cd0ee0d5b081586))
+* feat 3 ([16b2825](https://github.com/tharindurr/test-releases/commit/16b282586931d66a5efc806a06cd8e9dd0a48745))
+* feat 4 ([867c450](https://github.com/tharindurr/test-releases/commit/867c450204166eac235b9e56bbed948c7ed8d070))
+* feat 5 ([cc19649](https://github.com/tharindurr/test-releases/commit/cc19649a3149d12efbb53566c6d37178d7650f81))
+
 ## [0.2.0-prerelease.0](https://github.com/tharindurr/test-releases/compare/0.1.0...0.2.0-prerelease.0) (2025-03-26)
 
 
