@@ -139,9 +139,9 @@ async function main () {
       }
 
       determineReleaseType (version, commits) {
-        if (!!version.preRelease) {
-          return new PrereleasePatchVersionUpdate()
-        }
+        // if (!!version.preRelease) {
+        //   return new PrereleasePatchVersionUpdate()
+        // }
         return {
           bump: (version) => {
             return new Version(
