@@ -1,0 +1,105 @@
+name: Release automation
+description: 'Maintains release PRs against devel and release branches.'
+
+inputs:
+  app-id:
+    description: 'The app id of the GitHub App.'
+    required: true
+  app-private-key:
+    description: 'The private key of the GitHub App.'
+    required: true
+  release-type:
+    description: The technology stack of the project. python, node, go.
+    required: true
+  major-minor-tag-update:
+    description: 'Update major and minor tags.'
+    required: false
+  github-token:
+    description: 'The GitHub token.'
+    required: false
+
+
+outputs:
+  major:
+    description: The major version.
+    value: ${{ steps.release.outputs.major }}
+  minor:
+    description: The minor version.
+    value: ${{ steps.release.outputs.minor }}
+  patch:
+    description: The patch version.
+    value: ${{ steps.release.outputs.patch }}
+  release_created:
+    description: Whether a release was created.
+    value: ${{ steps.release.outputs.release_created }}
+
+runs:
+  using: composite
+  steps:
+
+    - uses: actions/checkout@v4
+      with:
+        ref: ${{ github.ref_name }}
+
+    - if: ${{ !env.ACT }}
+      name: Generate app token
+      id: generate-token
+      uses: actions/create-github-app-token@v1
+      with:
+        app-id: ${{ inputs.app-id }}
+        private-key: ${{ inputs.app-private-key }}
+
+    - name: Determine versioning strategy
+      id: versioning-strategy
+      shell: bash
+      run: |
+        strategy="only-patch"
+        if [[ "${{ github.ref_name }}" == devel ]]; then
+          strategy="only-minor"
+        elif [[ "${{ github.ref_name }}" == pre-release* ]]; then
+          strategy="only-pre-release"
+        fi
+        echo "strategy=$strategy" >> "$GITHUB_ENV"
+        echo "Versioning strategy: $strategy"
+
+    - if: ${{ !env.ACT }}
+      uses: ./.github/actions/release-please-action
+      id: release
+      with:
+        token: ${{ steps.generate-token.outputs.token }}
+        include-v-in-tag: false
+        release-type: ${{ inputs.release-type }}
+        default-branch: ${{ github.ref_name }}
+        versioning-strategy: ${{ steps.versioning-strategy.outputs.strategy }}
+        prerelease: ${{ contains(github.ref_name, 'pre-release') }}
+
+    - name: Get GitHub App User ID
+      if: ${{ inputs.major-minor-tag-update == 'true' && steps.release.outputs.release_created }}
+      shell: bash
+      id: get-user-id
+      run: |
+        if [ -z "${{ inputs.github-token }}" ]; then
+          echo "::error::GitHub token is required for tagging major and minor versions."
+          exit 1
+        fi
+        echo "user-id=$(gh api "/users/${{ steps.generate-token.outputs.app-slug }}[bot]" --jq .id)" >> "$GITHUB_OUTPUT"
+      env:
+        GH_TOKEN: ${{ steps.generate-token.outputs.token }}
+
+    - name: tag major and minor versions
+      if: ${{ inputs.major-minor-tag-update == 'true' && steps.release.outputs.release_created }}
+      shell: bash
+      run: |
+        git config user.name ${{ steps.generate-token.outputs.app-slug }}[bot]
+        git config user.email ${{ steps.get-user-id.outputs.user-id }}+${{ steps.generate-token.outputs.app-slug }}[bot]@users.noreply.github.com
+        git remote add gh-token "https://${{ inputs.github-token }}@${{ github.repository }}"
+        if [ ${{steps.release.outputs.major }} != "0" ]; then
+          git tag -d ${{ steps.release.outputs.major }} || true
+          git push origin :${{ steps.release.outputs.major }} || true
+          git tag -a ${{ steps.release.outputs.major }} -m "Release ${{ steps.release.outputs.major }}"
+          git push origin ${{ steps.release.outputs.major }}
+        fi
+        git tag -d ${{ steps.release.outputs.major }}.${{ steps.release.outputs.minor }} || true
+        git push origin :${{ steps.release.outputs.major }}.${{ steps.release.outputs.minor }} || true
+        git tag -a ${{ steps.release.outputs.major }}.${{ steps.release.outputs.minor }} -m "Release ${{ steps.release.outputs.major }}.${{ steps.release.outputs.minor }}"
+        git push origin ${{ steps.release.outputs.major }}.${{ steps.release.outputs.minor }}
