@@ -1,5 +1,25 @@
 # Changelog
 
+## 0.1.0-prerelease00 (2025-03-26)
+
+
+### Features
+
+* feat 1 ([0439bee](https://github.com/tharindurr/test-releases/commit/0439bee3db8b4fbf3db6421158d273f39fd95bcf))
+* feat 1 ([ba0f7c1](https://github.com/tharindurr/test-releases/commit/ba0f7c1e2ce6886dbb1f1a8338350f50656cc0b8))
+* init ([905c34f](https://github.com/tharindurr/test-releases/commit/905c34f91627a2e5e98453d411113011c51ed9a7))
+
+
+### Bug Fixes
+
+* feat 3 ([16b2825](https://github.com/tharindurr/test-releases/commit/16b282586931d66a5efc806a06cd8e9dd0a48745))
+* feat 4 ([867c450](https://github.com/tharindurr/test-releases/commit/867c450204166eac235b9e56bbed948c7ed8d070))
+
+
+### Miscellaneous Chores
+
+* release 0.1.0-prerelease00 ([c940df6](https://github.com/tharindurr/test-releases/commit/c940df61620eb8861448ace586c85673a3730259))
+
 ## [0.2.0-prerelease.0](https://github.com/tharindurr/test-releases/compare/0.1.0...0.2.0-prerelease.0) (2025-03-26)
 
 
