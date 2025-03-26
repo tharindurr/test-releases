@@ -59,7 +59,7 @@ runs:
         elif [[ "${{ github.ref_name }}" == pre-release* ]]; then
           strategy="only-pre-release"
         fi
-        echo "strategy=$strategy" >> "$GITHUB_ENV"
+        echo "strategy=$strategy" >> "$GITHUB_OUTPUT"
         echo "Versioning strategy: $strategy"
 
     - if: ${{ !env.ACT }}
@@ -70,7 +70,7 @@ runs:
         include-v-in-tag: false
         release-type: ${{ inputs.release-type }}
         default-branch: ${{ github.ref_name }}
-        versioning-strategy: "only-minor"
+        versioning-strategy: ${{ steps.versioning-strategy.outputs.strategy }}
         prerelease: ${{ contains(github.ref_name, 'pre-release') }}
 
     - name: Get GitHub App User ID
