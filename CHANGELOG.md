@@ -5,6 +5,15 @@
 
 ### Features
 
+* feat 1 ([987b3f6](https://github.com/tharindurr/test-releases/commit/987b3f63f5f1ef0ac2148fdf9d2ec5be722d8e3b))
+* feat 1 ([142df53](https://github.com/tharindurr/test-releases/commit/142df538b3711a3150b891d1fddef766a6f5ae66))
+* init ([905c34f](https://github.com/tharindurr/test-releases/commit/905c34f91627a2e5e98453d411113011c51ed9a7))
+
+## 0.1.0 (2025-03-26)
+
+
+### Features
+
 * init ([905c34f](https://github.com/tharindurr/test-releases/commit/905c34f91627a2e5e98453d411113011c51ed9a7))
 * release please and pre-commit ([6618adb](https://github.com/tharindurr/test-releases/commit/6618adbabffae52d3af0e93ec8d9216582f23e1d))
 
