@@ -54,7 +54,7 @@ runs:
         strategy="only-patch"
         if [ "${{ github.ref_name }}" == "devel" ]; then
           strategy="only-minor"
-        elif [ "${{ github.ref_name }}" == "pre-release"* ]; then
+        elif [[ "${{ github.ref_name }}" == pre-release* ]]; then
           strategy="only-pre-release"
         fi
         echo "strategy=$strategy" >> "$GITHUB_ENV"
