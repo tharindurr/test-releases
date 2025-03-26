@@ -12,6 +12,7 @@ class PrereleaseVersionUpdate {
   bump (version) {
     if (version.preRelease) {
       const match = version.preRelease.match(PRERELEASE_PATTERN)
+      console.log(`Match: ${JSON.stringify(match)}`);
       if (match === null || match === void 0 ? void 0 : match.groups) {
         const numberLength = match.groups.number.length
         const nextPrereleaseNumber = Number(match.groups.number) + 1
