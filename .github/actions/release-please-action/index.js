@@ -127,7 +127,7 @@ async function main () {
               version.major,
               version.minor + 1,
               0,
-              `${PRERELEASE_NAME}.0`,
+              `${PRERELEASE_NAME}00`,
               null
             )
           }
