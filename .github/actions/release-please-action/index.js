@@ -117,8 +117,9 @@ async function main () {
       }
 
       determineReleaseType (version, commits) {
-        console.log(`Version: ${JSON.stringify(version)}`);
+        core.info(`Version: ${JSON.stringify(version)}`);
         if (version.preRelease) {
+          core.info(`Prerelease version detected: ${version.preRelease}`);
           return new PrereleaseVersionUpdate()
         }
         return {
