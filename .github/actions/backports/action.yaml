@@ -1,0 +1,59 @@
+name: Backports
+description: 'Backports to branches by PR label.'
+
+inputs:
+  github-token:
+    description: 'The GitHub token to use for API requests.'
+    required: true
+
+runs:
+  using: composite
+  steps:
+    - if: ${{ !env.ACT }}
+      name: Check PR status
+      shell: bash
+      id: status
+      run: |
+        state=$(curl -s -H "Authorization: token ${{ inputs.github-token }}" \
+                -H "Accept: application/vnd.github.v3+json" \
+                https://api.github.com/repos/${{ github.repository }}/pulls/${{ github.event.pull_request.number }} \
+                | jq -r '.state')
+        echo "state=${state}" >> $GITHUB_OUTPUT
+
+    - if: ${{ !env.ACT }}
+      name: Check for Backport Label
+      id: label
+      run: |
+        # Convert the JSON string to an array of objects
+        labels=$(echo '${{ toJson(github.event.pull_request.labels) }}' | jq -c '.[]')
+
+        # Check if any object has a 'name' key value that matches 'backport'
+        if [ -z "$labels" ]; then
+          echo "has_label=false" >> $GITHUB_OUTPUT
+        else
+          if echo "$labels" | jq -e 'select(.name | startswith("backport-to") == true) | length > 0'; then
+            echo "has_label=true" >> $GITHUB_OUTPUT
+          else
+            echo "has_label=false" >> $GITHUB_OUTPUT
+          fi
+        fi
+      shell: bash
+
+    - if: ${{ !env.ACT && steps.status.outputs.state == 'closed' && steps.label.outputs.has_label == 'true' }}
+      name: Backport action
+      id: backport
+
+      uses: sorenlouv/backport-github-action@v9.3.0
+      with:
+        github_token: ${{ inputs.github-token }}
+        auto_backport_label_prefix: backport-to-
+
+    - if: ${{ success() && steps.status.outputs.state == 'closed' && steps.label.outputs.has_label == 'true' }}
+      name: Backport info log
+      shell: bash
+      run: cat ~/.backport/backport.info.log
+
+    - if: ${{ failure() && steps.status.outputs.state == 'closed' && steps.label.outputs.has_label == 'true' }}
+      name: Backport debug log
+      shell: bash
+      run: cat ~/.backport/backport.debug.log
