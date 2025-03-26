@@ -17,6 +17,7 @@ class PrereleaseVersionUpdate {
         const nextPrereleaseNumber = Number(match.groups.number) + 1
         const paddedNextPrereleaseNumber = `${nextPrereleaseNumber}`.padStart(numberLength, '0')
         const nextPrerelease = `${match.groups.type}${paddedNextPrereleaseNumber}`
+        console.log(`Bumping prerelease version from ${version.preRelease} to ${nextPrerelease}`);
         return new Version(version.major, version.minor, version.patch, nextPrerelease, undefined)
       }
     }
