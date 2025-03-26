@@ -55,7 +55,7 @@ runs:
         include-v-in-tag: false
         release-type: ${{ inputs.release-type }}
         default-branch: ${{ github.ref_name }}
-        versioning-strategy: ${{ github.ref_name == 'devel' && 'only-minor' || 'always-bump-patch' }}
+        versioning-strategy: ${{ github.ref_name == 'devel' && 'only-minor' || 'only-patch' }}
 
     - name: Get GitHub App User ID
       if: ${{ inputs.major-minor-tag-update == 'true' && steps.release.outputs.release_created }}

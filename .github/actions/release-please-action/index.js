@@ -93,6 +93,7 @@ async function main () {
         return {
           bump: (version) => {
             let nextMinor = version.preRelease ? version.minor : version.minor + 1;
+            console.log(`nextMinor: ${nextMinor}`);
             return new Version(
               version.major,
               nextMinor,
