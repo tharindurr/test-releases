@@ -5,6 +5,26 @@
 
 ### Features
 
+* feat 1 ([e6b0012](https://github.com/tharindurr/test-releases/commit/e6b0012203d826186029c75055eee267c63f808d))
+* init ([905c34f](https://github.com/tharindurr/test-releases/commit/905c34f91627a2e5e98453d411113011c51ed9a7))
+
+
+### Bug Fixes
+
+* ci cd ([2b8e270](https://github.com/tharindurr/test-releases/commit/2b8e270a59180cb814b8b51aec84ad7987a05961))
+* ci cd ([8e7e540](https://github.com/tharindurr/test-releases/commit/8e7e540f83d4b68cfc338aeb84b0803c75af520f))
+* ci cd ([018df95](https://github.com/tharindurr/test-releases/commit/018df95ef66673a01b808d194f74b28819710c3c))
+* ci cd ([819eac5](https://github.com/tharindurr/test-releases/commit/819eac5b0776b111ff2f5b331882a986f2b75de2))
+* ci cd ([43eb372](https://github.com/tharindurr/test-releases/commit/43eb3721f92873f0754cc785a051518c565abc1e))
+* ci cd ([836e0dd](https://github.com/tharindurr/test-releases/commit/836e0dd1c86fa00843c1342026f5be20a91373f8))
+* ci cd ([0aba416](https://github.com/tharindurr/test-releases/commit/0aba41626230fdbb136ee02d13415b6bbdf65dee))
+* ci cd ([5d58b05](https://github.com/tharindurr/test-releases/commit/5d58b0557685cefabc5bf1d08373f513cad5985b))
+
+## 0.1.0 (2025-03-26)
+
+
+### Features
+
 * feat 1 ([0439bee](https://github.com/tharindurr/test-releases/commit/0439bee3db8b4fbf3db6421158d273f39fd95bcf))
 * feat 1 ([ba0f7c1](https://github.com/tharindurr/test-releases/commit/ba0f7c1e2ce6886dbb1f1a8338350f50656cc0b8))
 * init ([905c34f](https://github.com/tharindurr/test-releases/commit/905c34f91627a2e5e98453d411113011c51ed9a7))
