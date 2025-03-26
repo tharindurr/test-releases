@@ -1,5 +1,21 @@
 # Changelog
 
+## [0.1.1-prerelease00](https://github.com/tharindurr/test-releases/compare/0.1.0-prerelease00...0.1.1-prerelease00) (2025-03-26)
+
+
+### Bug Fixes
+
+* ci cd ([5c1f822](https://github.com/tharindurr/test-releases/commit/5c1f82251e186cd2dccfc67f44059f2ac1af3275))
+* ci cd ([1388551](https://github.com/tharindurr/test-releases/commit/1388551c3296bf781c3a5e0159370bb89fd2a4f5))
+* ci cd ([a38a978](https://github.com/tharindurr/test-releases/commit/a38a97854e059c24a4ce24e1f16ae1837fac6a07))
+* ci cd ([5159c15](https://github.com/tharindurr/test-releases/commit/5159c156bb86b04f9df7723ba1ea774940986fe7))
+* ci cd ([ffdb972](https://github.com/tharindurr/test-releases/commit/ffdb972b2feca14dbc8b2e468da457dcb02f4966))
+* ci cd ([852e86b](https://github.com/tharindurr/test-releases/commit/852e86b32c7ab9fd8b7bc73c75ee3a4ab11b1943))
+* ci cd ([4894bed](https://github.com/tharindurr/test-releases/commit/4894bedbe50b9a6ca3e673056bddf66f8cb5a97f))
+* ci cd ([97d140b](https://github.com/tharindurr/test-releases/commit/97d140b6728f27e3161ddc9bd83ab96dac698ab3))
+* ci cd ([b2dc94b](https://github.com/tharindurr/test-releases/commit/b2dc94b7385603aa0d3a2883874362f1349f8360))
+* feat 5 ([7329b6d](https://github.com/tharindurr/test-releases/commit/7329b6da4b4be5513a0a6cd1d6020bd102be28c4))
+
 ## 0.1.0-prerelease00 (2025-03-26)
 
 
