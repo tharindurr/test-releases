@@ -141,7 +141,6 @@ async function main () {
 
   if (core.getInput('versioning-strategy')) {
     core.info(`Using custom versioning strategy: ${core.getInput('versioning-strategy')}`)
-    throw new Error('Custom versioning strategies are not supported')
   }
 
   const command = core.getInput('command') || undefined
