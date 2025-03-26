@@ -3,6 +3,7 @@ const { GitHub } = require('release-please/build/src/github')
 const { Manifest } = require('release-please/build/src/manifest')
 const { OnlyMinorVersionUpdate, OnlyPatchVersionUpdate, PrereleaseVersionUpdate } = require('./custom-strategies')
 const { registerVersioningStrategy } = require('release-please/build/src/factory')
+const { Version } = require('release-please/build/src/version')
 
 const CONFIG_FILE = 'release-please-config.json'
 const MANIFEST_FILE = '.release-please-manifest.json'
