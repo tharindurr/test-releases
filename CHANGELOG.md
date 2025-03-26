@@ -1,5 +1,14 @@
 # Changelog
 
+## [0.2.0-prerelease00](https://github.com/tharindurr/test-releases/compare/0.1.0...0.2.0-prerelease00) (2025-03-26)
+
+
+### Bug Fixes
+
+* ci cd ([7f3242e](https://github.com/tharindurr/test-releases/commit/7f3242e302ab8b811186b1833831bda38689de9d))
+* ci cd ([94e547f](https://github.com/tharindurr/test-releases/commit/94e547fdcacf731ff595a88f0a8bdf1bffe7e19e))
+* ci cd ([7f80bd6](https://github.com/tharindurr/test-releases/commit/7f80bd6bdd3206fd0fe033a9c6e4e9ab9bec4062))
+
 ## 0.1.0 (2025-03-26)
 
 
