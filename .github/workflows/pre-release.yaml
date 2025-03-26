@@ -1,74 +1,22 @@
 name: Pre-Release
 
 on:
-  workflow_call:
+  workflow_dispatch:
     inputs:
-      base_branch:
+      prerelease-name:
+        description: 'The name of the prerelease.'
         required: true
-        type: string
-      pre_release_name:
-        required: true
-        type: string
 
+permissions:
+  contents: write
 
 jobs:
-  release:
+  pre-release:
     runs-on: ubuntu-latest
     steps:
 
-      - name: Checkout
-        uses: actions/checkout@v2
-
-      # - name: Create pre-release branch
-      #   run: |
-      #     git checkout -b ${{ inputs.pre_release_name }} ${{ inputs.base_branch }}
-      #     git push origin ${{ inputs.pre_release_name }}
-
-      # - if: ${{ !env.ACT }}
-      #   name: Generate app token
-      #   id: generate-token
-      #   uses: actions/create-github-app-token@v1
-      #   with:
-      #     app-id: ${{ vars.APP_ID }}
-      #     private-key: ${{ secrets.APP_PRIVATE_KEY }}
-
-      # - if: ${{ !env.ACT }}
-      #   uses: googleapis/release-please-action@v3
-      #   id: release
-      #   with:
-      #     token: ${{ steps.generate-token.outputs.token }}
-      #     include-v-in-tag: false
-      #     release-type: "python"
-      #     default-branch: ${{ inputs.pre_release_name }}
-      #     versioning-strategy: "prerelease"
-
-      # - name: Get GitHub App User ID
-      #   if: ${{ inputs.major-minor-tag-update == 'true' && steps.release.outputs.release_created }}
-      #   shell: bash
-      #   id: get-user-id
-      #   run: |
-      #     if [ -z "${{ inputs.github-token }}" ]; then
-      #       echo "::error::GitHub token is required for tagging major and minor versions."
-      #       exit 1
-      #     fi
-      #     echo "user-id=$(gh api "/users/${{ steps.generate-token.outputs.app-slug }}[bot]" --jq .id)" >> "$GITHUB_OUTPUT"
-      #   env:
-      #     GH_TOKEN: ${{ steps.generate-token.outputs.token }}
-
-      # - name: tag major and minor versions
-      #   if: ${{ inputs.major-minor-tag-update == 'true' && steps.release.outputs.release_created }}
-      #   shell: bash
-      #   run: |
-      #     git config user.name ${{ steps.generate-token.outputs.app-slug }}[bot]
-      #     git config user.email ${{ steps.get-user-id.outputs.user-id }}+${{ steps.generate-token.outputs.app-slug }}[bot]@users.noreply.github.com
-      #     git remote add gh-token "https://${{ inputs.github-token }}@${{ github.repository }}"
-      #     if [ ${{steps.release.outputs.major }} != "0" ]; then
-      #       git tag -d ${{ steps.release.outputs.major }} || true
-      #       git push origin :${{ steps.release.outputs.major }} || true
-      #       git tag -a ${{ steps.release.outputs.major }} -m "Release ${{ steps.release.outputs.major }}"
-      #       git push origin ${{ steps.release.outputs.major }}
-      #     fi
-      #     git tag -d ${{ steps.release.outputs.major }}.${{ steps.release.outputs.minor }} || true
-      #     git push origin :${{ steps.release.outputs.major }}.${{ steps.release.outputs.minor }} || true
-      #     git tag -a ${{ steps.release.outputs.major }}.${{ steps.release.outputs.minor }} -m "Release ${{ steps.release.outputs.major }}.${{ steps.release.outputs.minor }}"
-      #     git push origin ${{ steps.release.outputs.major }}.${{ steps.release.outputs.minor }}
+      - uses: ./.github/actions/pre-release
+        with:
+          app-id: ${{ vars.APP_ID }}
+          app-private-key: ${{ secrets.APP_PRIVATE_KEY }}
+          prerelease-name: ${{ github.event.inputs.prerelease-name }}
