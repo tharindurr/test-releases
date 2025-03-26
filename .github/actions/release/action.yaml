@@ -69,7 +69,7 @@ runs:
         release-type: ${{ inputs.release-type }}
         default-branch: ${{ github.ref_name }}
         versioning-strategy: ${{ steps.versioning-strategy.outputs.strategy }}
-        prerelease: ${{ github.ref_name == 'devel' && 'true' || 'false' }}
+        prerelease: ${{ contains(github.ref_name, 'pre-release') }}
 
     - name: Get GitHub App User ID
       if: ${{ inputs.major-minor-tag-update == 'true' && steps.release.outputs.release_created }}
