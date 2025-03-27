@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.3.0](https://github.com/tharindurr/test-releases/compare/0.2.0...0.3.0) (2025-03-27)
+
+
+### Features
+
+* feat 3 ([5dc83ab](https://github.com/tharindurr/test-releases/commit/5dc83ab06f7edb34e3a8abc956f3b181b0339c15))
+* feat 4 ([0b081e9](https://github.com/tharindurr/test-releases/commit/0b081e9d8d3273f6a5d1dc81e35299f3540ccfe3))
+* feat 5 ([a586c10](https://github.com/tharindurr/test-releases/commit/a586c1000b1d7bde30c775dcc6808c98c8682d52))
+* feat 5 ([a0376e0](https://github.com/tharindurr/test-releases/commit/a0376e00758cdbd215421234a7742a978e2380da))
+* feat 6 ([a9e0c61](https://github.com/tharindurr/test-releases/commit/a9e0c61473fef17ace51d7f939fbf8e1d3c3c369))
+* feat 7 ([#25](https://github.com/tharindurr/test-releases/issues/25)) ([ca79d13](https://github.com/tharindurr/test-releases/commit/ca79d13c71955f5375e29828308fc7e455261500))
+
 ## [0.2.0](https://github.com/tharindurr/test-releases/compare/0.1.0...0.2.0) (2025-03-26)
 
 
